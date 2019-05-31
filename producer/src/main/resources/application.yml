@@ -1,0 +1,18 @@
+server:
+  port: 8081
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      bindings:
+        my-source:
+          destination: exchange_name
+      rabbit:
+        bindings:
+          my-source:
+            producer:
+              exchangeType: fanout

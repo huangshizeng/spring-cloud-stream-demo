@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: exchange_name
+          group: queue_name
+      rabbit:
+        bindings:
+          input:
+            consumer:
+              exchangeType: fanout
+              bindQueue: false
+              queueNameGroupOnly: true
+              maxConcurrency: 10 # 当来不及消费时，会逐渐起10个消费者来消费，消费完后会关闭9个消费者，只保留一个消费者
+              prefetch: 100
